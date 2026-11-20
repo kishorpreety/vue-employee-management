@@ -1,38 +1,38 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
+import { useEmployeeStore } from "./stores/employeeStore";
+import { storeToRefs } from "pinia";
+
 const employeeName = ref("");
 const employeeDepartment = ref("");
 const searchQuery = ref("");
-interface Employee {
-  id: number;
-  name: string;
-  department: string;
-}
+const employeeStore = useEmployeeStore();
 
-const employees = ref<Employee[]>([
-  { id: 1, name: "Rahul", department: "IT" },
-  { id: 2, name: "Priya", department: "HR" },
-  { id: 3, name: "Amit", department: "Finance" },
-]);
-
-function addEmployee() {
+const { employees } = storeToRefs(employeeStore);
+async function handleAddEmployee() {
   if (!employeeName.value.trim() || !employeeDepartment.value.trim()) {
     return;
   }
 
-  employees.value.push({
-    id: Math.max(0, ...employees.value.map((emp) => emp.id)) + 1,
-    name: employeeName.value,
-    department: employeeDepartment.value,
-  });
+  try {
+    await employeeStore.addEmployee(
+      employeeName.value.trim(),
+      employeeDepartment.value.trim(),
+    );
 
-  employeeName.value = "";
-  employeeDepartment.value = "";
+    employeeName.value = "";
+    employeeDepartment.value = "";
+  } catch (error) {
+    console.error("Unable to save employee:", error);
+  }
 }
 const filteredEmployees = computed(() => {
   return employees.value.filter((employee) =>
     employee.name.toLowerCase().includes(searchQuery.value.toLowerCase()),
   );
+});
+onMounted(() => {
+  employeeStore.fetchEmployees();
 });
 </script>
 
@@ -48,7 +48,7 @@ const filteredEmployees = computed(() => {
         <input v-model="employeeDepartment" placeholder="Department" />
       </div>
 
-      <button @click="addEmployee">Add Employee</button>
+      <button @click="handleAddEmployee">Add Employee</button>
     </div>
 
     <div class="employee-list">

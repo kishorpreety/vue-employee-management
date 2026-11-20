@@ -1,0 +1,35 @@
+{
+  "employees": [
+    {
+      "id": "1",
+      "name": "Rahul",
+      "department": "IT"
+    },
+    {
+      "id": "2",
+      "name": "Priya",
+      "department": "HR"
+    },
+    {
+      "id": "3",
+      "name": "Amit",
+      "department": "Finance"
+    },
+    {
+      "name": "rajdeep",
+      "department": "React",
+      "id": "kUKhFplLCb4"
+    },
+    {
+      "name": "rajdeep",
+      "department": "react",
+      "id": "OjR23ZvSxBo"
+    },
+    {
+      "name": "Shree",
+      "department": "Designer",
+      "id": "nDAAaKa6FNo"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
