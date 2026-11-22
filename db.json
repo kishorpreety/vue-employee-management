@@ -29,6 +29,11 @@
       "name": "Shree",
       "department": "Designer",
       "id": "nDAAaKa6FNo"
+    },
+    {
+      "name": "Pankaj",
+      "department": "UX lead",
+      "id": "rvQsWtLJuB8"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
